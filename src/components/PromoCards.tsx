@@ -51,19 +51,21 @@ export default function PromoCards() {
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   return (
-    <section className="container mx-auto px-4 md:px-8 max-w-7xl pb-16" ref={containerRef}>
+    <section className="container mx-auto px-4 md:px-8 max-w-7xl pb-20" ref={containerRef}>
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-4 md:gap-6 lg:h-[600px]"
       >
-        {PROMO_CARDS.map((card) => (
+        {PROMO_CARDS.map((card, index) => (
           <motion.div
             key={card.id}
             variants={cardVariants}
-            whileHover={{ y: -8, scale: 1.02 }}
-            className="relative h-80 rounded-3xl overflow-hidden shadow-lg group cursor-pointer"
+            whileHover={{ scale: 0.99 }} // Tactile scale down instead of pop up
+            className={`relative rounded-[2rem] overflow-hidden group cursor-pointer shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] ${
+              index === 0 ? "lg:col-span-2 lg:row-span-2 h-96 lg:h-full" : "h-72 lg:h-full"
+            }`}
           >
             {/* Background Image */}
             <div className="absolute inset-0 z-0 transition-transform duration-700 ease-out group-hover:scale-110">
@@ -76,15 +78,15 @@ export default function PromoCards() {
               />
             </div>
             
-            {/* Gradient Overlay for Text Readability */}
-            <div className="absolute inset-0 z-10 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+            {/* Gradient Overlay for Text Readability - Softer for premium look */}
+            <div className={`absolute inset-0 z-10 bg-linear-to-t ${index === 0 ? "from-black/60" : "from-black/70"} via-black/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500`} />
 
-            {/* Content Content aligned to bottom center */}
-            <div className="relative z-20 h-full flex flex-col items-center justify-end p-8 text-center">
-              <h3 className="text-2xl font-bold text-white mb-2 drop-shadow-md tracking-wide">
+            {/* Content aligned to bottom center */}
+            <div className={`relative z-20 h-full flex flex-col items-center flex-end p-8 md:p-10 text-center ${index === 0 ? "justify-end pb-12" : "justify-end"}`}>
+              <h3 className={`font-extrabold text-white mb-2 tracking-tight ${index === 0 ? "text-4xl md:text-5xl" : "text-2xl"}`}>
                 {card.title}
               </h3>
-              <p className="text-gray-200 text-sm font-medium drop-shadow-md">
+              <p className={`text-white/80 font-medium ${index === 0 ? "text-lg max-w-md" : "text-sm"}`}>
                 {card.subtitle}
               </p>
             </div>

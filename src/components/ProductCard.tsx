@@ -34,9 +34,19 @@ export default function ProductCard({ product }: ProductCardProps) {
           transition: { type: "spring", stiffness: 100, damping: 15 },
         },
       }}
-      className="group bg-[#f8f9fa] rounded-2xl p-4 md:p-6 transition-all duration-300 border-[3px] border-transparent hover:border-brand-orange flex flex-col h-full cursor-pointer"
+      className="group bg-white rounded-[2rem] p-4 md:p-6 transition-all duration-500 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] flex flex-col h-full cursor-pointer relative overflow-hidden"
     >
-      <div className="relative aspect-square w-full mb-6 flex items-center justify-center">
+      {/* Quick View Frosted Glass Overlay */}
+      <div className="absolute inset-0 z-20 bg-white/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 pointer-events-none">
+        <motion.button 
+          whileTap={{ scale: 0.95 }}
+          className="pointer-events-auto bg-[#0A0A0A] text-white px-6 py-3 rounded-full font-semibold shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:bg-black transition-colors flex items-center gap-2 translate-y-4 group-hover:translate-y-0 duration-300 ease-out"
+        >
+          Quick View
+        </motion.button>
+      </div>
+
+      <div className="relative aspect-square w-full mb-6 flex items-center justify-center z-10">
         <motion.div
           className="w-full h-full relative"
           whileHover={{ scale: 1.05 }}
@@ -70,12 +80,18 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
 
         <div className="w-full flex items-center justify-between gap-3 mt-auto">
-          <button className="flex-1 py-2.5 px-2 text-sm font-bold rounded-lg bg-orange-100 text-brand-orange group-hover:bg-brand-orange group-hover:text-white transition-colors shadow-sm">
+          <motion.button 
+            whileTap={{ scale: 0.97 }}
+            className="flex-1 py-3 px-2 text-sm font-bold rounded-xl bg-gray-50 text-[#0A0A0A] hover:bg-gray-100 transition-colors shadow-sm border border-gray-100"
+          >
             Buy Now
-          </button>
-          <button className="flex-1 py-2.5 px-2 text-sm font-bold rounded-lg bg-gray-200 text-gray-700 group-hover:bg-gray-900 group-hover:text-white transition-colors shadow-sm">
+          </motion.button>
+          <motion.button 
+            whileTap={{ scale: 0.97 }}
+            className="flex-1 py-3 px-2 text-sm font-bold rounded-xl bg-[#0A0A0A] text-white hover:bg-black transition-colors shadow-sm"
+          >
             Add to Cart
-          </button>
+          </motion.button>
         </div>
       </div>
     </motion.div>

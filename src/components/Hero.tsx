@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 
 const containerVariants: Variants = {
@@ -10,175 +10,116 @@ const containerVariants: Variants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.2,
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
     },
   },
 };
 
-const leftBannerVariants: Variants = {
-  hidden: { opacity: 0, y: 40 },
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 70, damping: 15, duration: 0.8 },
+    transition: { type: "spring", stiffness: 80, damping: 20 },
   },
 };
-
-const rightBannerVariants: Variants = {
-  hidden: { opacity: 0, x: 20 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { type: "spring", stiffness: 80, damping: 15, duration: 0.6 },
-  },
-};
-
-const contentVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
 
 export default function Hero() {
-  // Fallback images if API fails
   const mainImage = "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738055/v53buf6akycf7svei23d.png";
-  const sideImage1 = "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738057/x03wta9dyrvvp4oqtoes.png";
-  const sideImage2 = "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738056/jbhtidlhdnkjine5ey9f.png";
 
   return (
-    <section className="container mx-auto px-4 md:px-8 max-w-7xl pt-8 pb-12">
+    <section className="relative container mx-auto px-4 md:px-8 max-w-7xl pt-16 pb-24 overflow-hidden">
+      {/* Subtle Background Glows */}
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-brand-orange/10 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 right-1/4 -translate-y-1/2 translate-x-1/4 w-125 h-125 bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
+
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-auto lg:h-125"
+        className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 h-auto lg:min-h-[70vh]"
       >
-        {/* Main Banner */}
-        <motion.div
-          variants={leftBannerVariants}
-          className="lg:col-span-2 relative rounded-3xl overflow-hidden group"
-        >
-          <div className="absolute inset-0 bg-linear-to-br from-[#f8f3f0] to-[#e6ede7] z-0" />
-          {/* Decorative blur blobs */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-orange-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-pulse" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 bg-teal-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70" />
-
-          <motion.div
-            variants={contentVariants}
-            className="relative z-10 p-8 md:p-12 flex flex-col justify-center h-full w-full lg:w-3/5"
-          >
-            <span className="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-wider text-brand-orange uppercase bg-white/80 backdrop-blur rounded-full w-max shadow-sm">
-              New Arrival
+        {/* Left Content Area */}
+        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left z-10 w-full max-w-3xl mx-auto lg:mx-0">
+          <motion.div variants={itemVariants} className="mb-6 inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white/50 backdrop-blur-md shadow-xs">
+            <Sparkles className="w-4 h-4 text-brand-orange" />
+            <span className="text-xs font-bold tracking-widest text-[#0A0A0A] uppercase">
+              The Next Generation
             </span>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight mb-4 tracking-tight">
-              Upgrade Your{" "}
-              <span className="text-transparent bg-clip-text bg-linear-to-r from-brand-orange to-red-500">
-                Everyday Tech
-              </span>
-            </h1>
-            <p className="text-gray-600 text-lg mb-8 max-w-md">
-              Discover the most advanced devices designed to simplify your life
-              and boost productivity. Explore our premium collection today.
-            </p>
-            <Link
-              href="/shop"
-              className="group/btn flex items-center justify-center gap-2 bg-gray-900 hover:bg-brand-orange text-white px-8 py-3.5 rounded-full font-medium transition-all duration-300 w-max shadow-lg hover:shadow-brand-orange/20"
-            >
-              Shop Now
-              <motion.div whileHover={{ x: 5 }}>
-                <ArrowRight className="w-5 h-5 transition-transform" />
-              </motion.div>
-            </Link>
           </motion.div>
+          
+          <motion.h1 
+            variants={itemVariants} 
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold text-[#0A0A0A] leading-[1.1] mb-6 tracking-tighter"
+          >
+            Upgrade Your <br className="hidden lg:block" />
+            <span className="text-transparent bg-clip-text bg-linear-to-br from-[#0A0A0A] via-gray-700 to-gray-400">
+              Everyday Tech.
+            </span>
+          </motion.h1>
+          
+          <motion.p 
+            variants={itemVariants} 
+            className="text-gray-500 text-lg md:text-xl mb-10 max-w-xl leading-relaxed font-medium"
+          >
+            Discover the most advanced devices designed to simplify your life and boost productivity. Precision engineering meets minimalist design.
+          </motion.p>
+          
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center lg:justify-start">
+            <motion.div whileTap={{ scale: 0.97 }} className="w-full sm:w-max">
+              <Link
+                href="/shop"
+                className="group flex items-center justify-center gap-3 bg-[#0A0A0A] hover:bg-black text-white px-10 py-4 rounded-2xl font-semibold transition-all duration-300 w-full shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)]"
+              >
+                Shop Collection
+                <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 200 }}>
+                  <ArrowRight className="w-5 h-5" />
+                </motion.div>
+              </Link>
+            </motion.div>
+            <motion.div whileTap={{ scale: 0.97 }} className="w-full sm:w-max">
+              <Link
+                href="#categories"
+                className="group flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-[#0A0A0A] px-10 py-4 rounded-2xl font-semibold transition-all duration-300 border border-gray-200 w-full shadow-xs"
+              >
+                Explore Features
+              </Link>
+            </motion.div>
+          </motion.div>
+        </div>
 
-          {/* Main Hero Image */}
+        {/* Right Floating Image Area */}
+        <motion.div 
+          variants={itemVariants}
+          className="flex-1 relative w-full h-[50vh] lg:h-[70vh] flex flex-col items-center justify-center -mt-10 lg:mt-0"
+        >
+          {/* Continuous Floating Animation */}
           <motion.div
-            variants={contentVariants}
-            className="absolute right-0 bottom-0 h-[85%] w-[80%] md:w-[60%] lg:w-[50%] z-10"
+            animate={{ y: [-20, 10, -20] }}
+            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+            className="relative w-full h-full z-10 flex flex-col justify-center items-center"
           >
             <Image
               src={mainImage}
-              alt="Upgrade Your Everyday Tech"
+              alt="Premium Tech Device"
               fill
-              className="object-contain object-bottom p-8 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply"
+              className="object-contain object-center scale-[1.1] lg:scale-[1.2] drop-shadow-2xl mix-blend-multiply"
               priority
-              sizes="(max-width: 1024px) 100vw, 60vw"
+              sizes="(max-width: 1024px) 100vw, 50vw"
             />
           </motion.div>
+          
+          {/* Dynamic Elliptical Shadow */}
+          <motion.div 
+            animate={{ 
+              scale: [1, 0.85, 1],
+              opacity: [0.3, 0.15, 0.3],
+            }}
+            transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+            className="absolute bottom-[5%] lg:bottom-[10%] left-1/2 -translate-x-1/2 w-64 md:w-96 h-6 md:h-10 bg-black/40 blur-xl rounded-[100%] z-0"
+          />
         </motion.div>
-
-        {/* Side Banners */}
-        <div className="flex flex-col gap-6">
-          {/* Top Side Banner */}
-          <motion.div
-            variants={rightBannerVariants}
-            className="relative flex-1 rounded-3xl overflow-hidden group bg-linear-to-br from-brand-purple-dark to-brand-purple p-8 flex flex-col justify-center"
-          >
-            <div className="absolute top-0 right-0 w-32 h-32 bg-pink-500/30 rounded-full mix-blend-screen filter blur-2xl opacity-70 group-hover:scale-150 transition-transform duration-700" />
-            <motion.div variants={contentVariants} className="relative z-10">
-              <h3 className="text-2xl font-bold text-brand-orange mb-2 leading-tight">
-                Power Up Your Setup
-              </h3>
-              <p className="text-white/80 text-sm mb-6 max-w-52.5 leading-relaxed">
-                Shop the best smartphones, laptops, and must-have accessories.
-              </p>
-              <Link
-                href="/shop"
-                className="text-white text-sm font-medium hover:text-brand-orange transition-colors flex items-center w-max underline underline-offset-4 decoration-white/50 hover:decoration-brand-orange"
-              >
-                Shop Now
-              </Link>
-            </motion.div>
-            {/* Top Side Banner Image */}
-            <div className="absolute right-0 bottom-0 w-36 h-44 md:w-44 md:h-52 z-10">
-              <Image
-                src={sideImage1}
-                alt="Power Up Your Setup"
-                fill
-                className="object-contain object-bottom p-4 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500 mix-blend-multiply"
-                sizes="(max-width: 1024px) 50vw, 20vw"
-              />
-            </div>
-          </motion.div>
-
-          {/* Bottom Side Banner */}
-          <motion.div
-            variants={rightBannerVariants}
-            className="relative flex-1 rounded-3xl overflow-hidden group bg-linear-to-r from-gray-900 via-gray-800 to-gray-900 p-8 flex flex-col justify-center"
-          >
-            <div className="absolute bottom-0 left-0 w-full h-full bg-linear-to-t from-brand-orange/40 to-transparent opacity-60" />
-            <div className="absolute bottom-0 right-0 w-32 h-32 bg-brand-orange rounded-full mix-blend-screen filter blur-3xl opacity-40 group-hover:scale-125 transition-transform duration-700" />
-            <motion.div variants={contentVariants} className="relative z-10">
-              <h3 className="text-2xl font-bold text-brand-orange mb-2 leading-tight">
-                Level Up Your Playtime
-              </h3>
-              <p className="text-white/80 text-sm mb-6 max-w-52.5 leading-relaxed">
-                Shop the best smartphones, laptops, and must-have accessories.
-              </p>
-              <Link
-                href="/shop"
-                className="text-white text-sm font-medium hover:text-brand-orange transition-colors flex items-center w-max underline underline-offset-4 decoration-white/50 hover:decoration-brand-orange"
-              >
-                Shop Now
-              </Link>
-            </motion.div>
-            {/* Bottom Side Banner Image */}
-            <div className="absolute right-4 bottom-0 w-32 h-40 md:w-40 md:h-48 z-10">
-              <Image
-                src={sideImage2}
-                alt="Level Up Your Playtime"
-                fill
-                className="object-contain object-bottom p-4 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply"
-                sizes="(max-width: 1024px) 50vw, 20vw"
-              />
-            </div>
-          </motion.div>
-        </div>
       </motion.div>
     </section>
   );

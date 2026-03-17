@@ -30,51 +30,52 @@ export default function PromoBanner() {
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="relative rounded-3xl overflow-hidden bg-linear-to-r from-brand-purple to-purple-600 px-8 py-16 md:px-16 md:py-24 shadow-2xl flex flex-col md:flex-row items-center justify-between"
+        className="relative rounded-[2.5rem] overflow-hidden bg-[#0A0A0A] px-8 py-16 md:px-16 md:py-24 shadow-2xl flex flex-col md:flex-row items-center justify-between"
       >
-        {/* Decorative Elements */}
-        <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay z-0" />
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-brand-orange rounded-full mix-blend-screen filter blur-[80px] opacity-70 z-0 animate-pulse" />
+        {/* Subtle glowing orb for depth */}
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full filter blur-[100px] pointer-events-none" />
         
-        <div className="relative z-10 max-w-xl text-center md:text-left mb-8 md:mb-0">
-          <motion.div variants={itemVariants} className="flex items-center gap-2 justify-center md:justify-start mb-4 text-brand-orange font-semibold tracking-wider text-sm uppercase">
-            <Tag className="w-5 h-5" />
+        <div className="relative z-10 max-w-xl text-center md:text-left mb-12 md:mb-0">
+          <motion.div variants={itemVariants} className="inline-flex items-center gap-2 justify-center md:justify-start mb-6 text-white/50 font-bold tracking-[0.2em] text-xs uppercase border border-white/10 px-4 py-2 rounded-full">
+            <Tag className="w-4 h-4" />
             Limited Time Offer
           </motion.div>
-          <motion.h2 variants={itemVariants} className="text-4xl md:text-5xl font-extrabold leading-tight mb-4 text-white drop-shadow-sm tracking-tight">
-            Elevate Your Sound Experience
+          <motion.h2 variants={itemVariants} className="text-5xl md:text-6xl font-extrabold leading-[1.1] mb-6 text-white tracking-tighter">
+            Elevate Your <br /> Sound Experience.
           </motion.h2>
-          <motion.p variants={itemVariants} className="text-purple-100 text-lg mb-8 max-w-md mx-auto md:mx-0">
-            Get up to <span className="text-brand-orange font-bold">40% OFF</span> on selected premium noise-cancelling headphones. Promotion ends soon!
+          <motion.p variants={itemVariants} className="text-gray-400 text-lg md:text-xl mb-10 max-w-md mx-auto md:mx-0 font-medium">
+            Get up to <span className="text-white">40% OFF</span> on selected premium noise-cancelling headphones. Promotion ends soon.
           </motion.p>
           
-          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-            <div className="flex bg-white/10 backdrop-blur-md rounded-xl p-3 border border-white/20">
+          <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-6 justify-center md:justify-start">
+            <div className="flex bg-white/5 backdrop-blur-xl rounded-2xl p-4 border border-white/10 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.5)]">
               <div className="flex flex-col items-center px-4">
-                <span className="text-2xl font-bold text-white">02</span>
-                <span className="text-xs text-purple-200">Days</span>
+                <span className="text-3xl font-extrabold text-white">02</span>
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Days</span>
               </div>
-              <div className="w-px h-10 bg-white/20 self-center" />
+              <div className="w-px h-12 bg-white/10 self-center mx-2" />
               <div className="flex flex-col items-center px-4">
-                <span className="text-2xl font-bold text-white">14</span>
-                <span className="text-xs text-purple-200">Hours</span>
+                <span className="text-3xl font-extrabold text-white">14</span>
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Hours</span>
               </div>
-              <div className="w-px h-10 bg-white/20 self-center" />
+              <div className="w-px h-12 bg-white/10 self-center mx-2" />
               <div className="flex flex-col items-center px-4">
-                <span className="text-2xl font-bold text-white">45</span>
-                <span className="text-xs text-purple-200">Mins</span>
+                <span className="text-3xl font-extrabold text-white">45</span>
+                <span className="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Mins</span>
               </div>
             </div>
 
-            <Link
-              href="/shop"
-              className="group/btn flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-gray-900 px-8 py-3.5 rounded-full font-bold transition-all duration-300 w-max shadow-lg shadow-white/10"
-            >
-              Shop Sale Now
-              <motion.div whileHover={{ x: 5 }}>
-                <ArrowRight className="w-5 h-5 transition-transform" />
-              </motion.div>
-            </Link>
+            <motion.div whileTap={{ scale: 0.95 }} className="w-full sm:w-max">
+              <Link
+                href="/shop"
+                className="group/btn flex items-center justify-center gap-2 bg-white hover:bg-gray-100 text-black px-8 py-4 rounded-full font-bold transition-all duration-500 w-full shadow-[0_0_30px_rgba(255,255,255,0.15)] hover:shadow-[0_0_50px_rgba(255,255,255,0.3)] border border-white/20"
+              >
+                Shop Sale Now
+                <motion.div whileHover={{ x: 5 }}>
+                  <ArrowRight className="w-5 h-5 transition-transform" />
+                </motion.div>
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
 
@@ -90,19 +91,19 @@ export default function PromoBanner() {
           <motion.div 
             animate={{ rotate: [0, -5, 5, 0] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute -top-6 -left-6 z-30 bg-brand-orange text-white w-24 h-24 rounded-full flex flex-col items-center justify-center font-bold shadow-xl border-4 border-white transform -rotate-12"
+            className="absolute -top-4 -left-8 z-30 bg-white text-black w-24 h-24 rounded-full flex flex-col items-center justify-center font-bold shadow-[0_0_30px_rgba(255,255,255,0.2)] border-2 border-white/20 transform -rotate-12 backdrop-blur-md"
           >
-            <span className="text-2xl leading-none">40%</span>
-            <span className="text-xs uppercase tracking-wider">OFF</span>
+            <span className="text-3xl leading-none">40%</span>
+            <span className="text-[10px] uppercase tracking-widest mt-1">OFF</span>
           </motion.div>
           
           {/* Product Graphic */}
-          <div className="w-full h-full rounded-full border border-white/20 flex items-center justify-center relative z-20">
+          <div className="w-full h-full relative z-20">
              <Image 
                src="https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738060/aer8mmgbsk0wqdj5kcog.png"
                alt="Promotion Product"
                fill
-               className="object-contain scale-[1.3] drop-shadow-2xl translate-y-2 translate-x-1"
+               className="object-contain scale-[1.3] drop-shadow-[0_20px_40px_rgba(0,0,0,0.8)] translate-y-2 translate-x-1 hover:scale-[1.35] transition-transform duration-700"
                sizes="(max-width: 768px) 100vw, 300px"
              />
           </div>

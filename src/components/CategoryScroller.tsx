@@ -131,11 +131,11 @@ export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: {
                 key={cat.id}
                 className="w-[calc(100%-16px)] sm:w-[calc(50%-16px)] md:w-[calc(33.333%-16px)] xl:w-[calc(16.666%-20px)] snap-start shrink-0 cursor-pointer"
               >
-                <div className="w-full aspect-4/5 bg-gray-100 rounded-2xl flex flex-col items-center justify-between shadow-sm border border-gray-100 group-hover:border-gray-300 transition-all duration-300 relative overflow-hidden">
+                <div className="w-full aspect-4/5 bg-white rounded-[2rem] flex flex-col items-center justify-between shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] transition-shadow duration-500 relative overflow-hidden">
                   <motion.div
-                    className="w-full h-full relative p-4 flex-1 mb-10"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="w-full h-full relative p-6 flex-1 mb-12"
+                    whileHover={{ scale: 1.15 }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
                   >
                     <Image 
                       src={cat.image || "https://dummyjson.com/image/200x200/ffffff/282828?text=Category"} 
@@ -145,8 +145,8 @@ export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                     />
                   </motion.div>
-                  <div className="absolute bottom-0 left-0 right-0 bg-gray-900 py-3 px-2 text-center">
-                    <span className="text-sm font-medium text-white transition-colors w-full tracking-wide">
+                  <div className="absolute bottom-0 w-full bg-white/80 backdrop-blur-xl border-t border-gray-100 py-3.5 px-4 text-center z-10 transition-colors group-hover:bg-white group-hover:border-gray-200">
+                    <span className="text-[#0A0A0A] font-bold text-sm tracking-wide">
                       {cat.name}
                     </span>
                   </div>

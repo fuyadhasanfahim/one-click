@@ -34,14 +34,14 @@ export default function Footer() {
       variants={footerVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      className="bg-gray-900 text-gray-400 pt-16 pb-8 border-t border-gray-800"
+      className="bg-[#0A0A0A] text-gray-400 pt-20 pb-10 border-t border-white/5"
     >
       <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
           
           {/* Brand Info */}
-          <motion.div variants={columnVariants} className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-6 group w-max">
+          <motion.div variants={columnVariants} className="flex flex-col">
+            <Link href="/" className="flex items-center gap-3 mb-6 group w-max">
               <div className="w-8 h-8 rounded bg-brand-orange flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
                 O
               </div>
@@ -60,9 +60,9 @@ export default function Footer() {
                     whileHover={{ scale: 1.1, y: -2 }}
                     key={i} 
                     href="#" 
-                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-brand-orange hover:bg-brand-orange hover:text-white transition-colors"
+                    className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-cyan-400 hover:border-cyan-400/50 hover:bg-cyan-400/10 hover:drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] transition-all duration-300"
                   >
-                    <Icon className="w-5 h-5" />
+                    <Icon className="w-4 h-4" />
                   </motion.a>
                 ))}
               </div>
@@ -75,8 +75,8 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               {["Shop All", "New Arrivals", "Best Sellers", "Track Order", "About Us"].map((link) => (
                 <li key={link}>
-                  <Link href="#" className="text-sm hover:text-brand-orange transition-colors flex items-center gap-2 group">
-                    <span className="w-1 h-1 rounded-full bg-brand-orange opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Link href="#" className="text-sm hover:text-white transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-[0_0_4px_rgba(34,211,238,0.8)]" />
                     {link}
                   </Link>
                 </li>
@@ -90,8 +90,8 @@ export default function Footer() {
             <ul className="flex flex-col gap-3">
               {["Help Center", "Returns & Exchanges", "Shipping Info", "Terms & Conditions", "Privacy Policy"].map((link) => (
                 <li key={link}>
-                  <Link href="#" className="text-sm hover:text-brand-orange transition-colors flex items-center gap-2 group">
-                    <span className="w-1 h-1 rounded-full bg-brand-orange opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <Link href="#" className="text-sm hover:text-white transition-colors flex items-center gap-2 group">
+                    <span className="w-1 h-1 rounded-full bg-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-[0_0_4px_rgba(34,211,238,0.8)]" />
                     {link}
                   </Link>
                 </li>

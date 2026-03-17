@@ -53,9 +53,17 @@ export default async function Home() {
     fetchCategory("tablets"),
   ]);
 
-  const popularRes = await fetch("https://dummyjson.com/products?limit=8&skip=30");
-  const popularData = popularRes.ok ? await popularRes.json() : { products: [] };
-  const popularProducts = popularData.products.map((p: DummyProduct) => ({
+  const popularRes = await fetch("https://dummyjson.com/products/category/smartphones?limit=4");
+  const popularRes2 = await fetch("https://dummyjson.com/products/category/laptops?limit=4");
+  
+  const [popularData1, popularData2] = await Promise.all([
+    popularRes.ok ? popularRes.json() : { products: [] },
+    popularRes2.ok ? popularRes2.json() : { products: [] }
+  ]);
+  
+  const combinedPopular = [...popularData1.products, ...popularData2.products];
+  
+  const popularProducts = combinedPopular.map((p: DummyProduct) => ({
       id: p.id.toString(),
       name: p.title,
       price: p.price,
@@ -69,7 +77,7 @@ export default async function Home() {
   }));
 
   return (
-    <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-brand-orange selection:text-white">
+    <div className="min-h-screen bg-[#FAFAFA] font-sans text-[#0A0A0A] selection:bg-brand-orange selection:text-white pb-20">
       <Navbar />
 
       <main>
