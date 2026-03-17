@@ -68,8 +68,8 @@ export default function ProductGrid({ title, products, viewAllLink = "/shop", co
     }
   };
 
-  // Estimated pages, typically 5 items per page on xl screens (1280px)
-  const itemsPerPage = 5; 
+  // Estimated pages, typically 4 items per page on xl screens (1280px)
+  const itemsPerPage = 4; 
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
   return (
@@ -112,7 +112,7 @@ export default function ProductGrid({ title, products, viewAllLink = "/shop", co
         onScroll={isCarousel ? handleScroll : undefined}
         className={
           isCarousel
-            ? "flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 px-1"
+            ? "flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-6 px-4 -my-6 -mx-4"
             : `grid gap-6 ${gridClasses[columns]}`
         }
         style={isCarousel ? { scrollbarWidth: "none", msOverflowStyle: "none" } : {}}
@@ -120,7 +120,7 @@ export default function ProductGrid({ title, products, viewAllLink = "/shop", co
         {products.map((product) => (
           <div 
             key={product.id} 
-            className={isCarousel ? "w-[calc(100%)] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] xl:w-[calc(20%-19.2px)] snap-start shrink-0" : ""}
+            className={isCarousel ? "w-[calc(100%)] sm:w-[calc(50%-12px)] md:w-[calc(33.333%-16px)] xl:w-[calc(25%-18px)] snap-start shrink-0" : ""}
           >
             <ProductCard product={product} />
           </div>

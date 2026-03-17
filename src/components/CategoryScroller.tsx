@@ -1,15 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion, useInView, Variants } from "framer-motion";
-
 import Image from "next/image";
 
 export interface CategoryData {
   id: string | number;
   name: string;
-  image: string;
+  image?: string;
 }
 
 const FALLBACK_CATEGORIES: CategoryData[] = [
@@ -52,16 +51,37 @@ export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: {
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  const scroll = (direction: "left" | "right") => {
+  const handleScroll = () => {
+    if (!scrollRef.current) return;
+    const { scrollLeft, clientWidth } = scrollRef.current;
+    setActiveIndex(Math.round(scrollLeft / clientWidth));
+  };
+
+  const scrollByAmount = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const scrollAmount = 300;
+      const amount = scrollRef.current.clientWidth;
       scrollRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
+        left: direction === "left" ? -amount : amount,
         behavior: "smooth",
       });
     }
   };
+
+  const scrollToPage = (index: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTo({
+        left: index * scrollRef.current.clientWidth,
+        behavior: "smooth",
+      });
+      setActiveIndex(index);
+    }
+  };
+
+  // Estimate 4 categories per view on desktop, 2 on mobile
+  const itemsPerPage = 6; 
+  const totalPages = Math.ceil(categories.length / itemsPerPage);
 
   return (
     <section className="container mx-auto px-4 md:px-8 max-w-7xl py-12" ref={containerRef}>
@@ -80,14 +100,14 @@ export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: {
       <div className="relative group/scroller">
         {/* Scroll Buttons */}
         <button
-          onClick={() => scroll("left")}
+          onClick={() => scrollByAmount("left")}
           className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-brand-orange border border-orange-100 hover:bg-brand-orange hover:text-white transition-colors opacity-0 group-hover/scroller:opacity-100 disabled:opacity-0"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
 
         <button
-          onClick={() => scroll("right")}
+          onClick={() => scrollByAmount("right")}
           className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-brand-orange border border-orange-100 hover:bg-brand-orange hover:text-white transition-colors opacity-0 group-hover/scroller:opacity-100 disabled:opacity-0"
         >
           <ArrowRight className="w-5 h-5" />
@@ -99,40 +119,59 @@ export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: {
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-4 px-2"
+          onScroll={handleScroll}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-6 px-4 -mx-4 -my-6"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {categories.map((cat) => (
-            <motion.div
-              variants={itemVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
-              key={cat.id}
-              className="min-w-35 md:min-w-40 flex flex-col items-center snap-center group cursor-pointer"
-            >
-              <div className="w-full aspect-square bg-white rounded-full flex items-center justify-center mb-4 border border-gray-200 group-hover:border-brand-orange/50 group-hover:shadow-lg transition-all duration-300 p-6 relative">
-                <motion.div
-                  className="w-full h-full relative"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                >
-                  <Image 
-                    src={cat.image} 
-                    alt={cat.name} 
-                    fill 
-                    className="object-contain" 
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                  />
-                </motion.div>
-              </div>
-              <div className="bg-white border border-gray-200 rounded-full py-2.5 px-6 w-full text-center group-hover:border-brand-orange/50 group-hover:shadow-md transition-all duration-300">
-                <span className="text-sm font-bold text-gray-800 group-hover:text-brand-orange transition-colors truncate block">
-                  {cat.name}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+          {categories.map((cat) => {
+            return (
+              <motion.div
+                variants={itemVariants}
+                whileHover={{ y: -8, scale: 1.02 }}
+                key={cat.id}
+                className="w-[calc(100%-16px)] sm:w-[calc(50%-16px)] md:w-[calc(33.333%-16px)] xl:w-[calc(16.666%-20px)] snap-start shrink-0 cursor-pointer"
+              >
+                <div className="w-full aspect-4/5 bg-gray-100 rounded-2xl flex flex-col items-center justify-between shadow-sm border border-gray-100 group-hover:border-gray-300 transition-all duration-300 relative overflow-hidden">
+                  <motion.div
+                    className="w-full h-full relative p-4 flex-1 mb-10"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  >
+                    <Image 
+                      src={cat.image || "https://dummyjson.com/image/200x200/ffffff/282828?text=Category"} 
+                      alt={cat.name} 
+                      fill 
+                      className="object-contain p-2" 
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                    />
+                  </motion.div>
+                  <div className="absolute bottom-0 left-0 right-0 bg-gray-900 py-3 px-2 text-center">
+                    <span className="text-sm font-medium text-white transition-colors w-full tracking-wide">
+                      {cat.name}
+                    </span>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
+
+      {/* Pagination Dots */}
+      {totalPages > 1 && (
+        <div className="flex justify-center gap-2 mt-6">
+          {Array.from({ length: totalPages }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => scrollToPage(idx)}
+              className={`h-2.5 rounded-full transition-all duration-300 ${
+                activeIndex === idx ? "w-8 bg-brand-orange" : "w-2.5 bg-gray-300 hover:bg-gray-400"
+              }`}
+              aria-label={`Go to category page ${idx + 1}`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

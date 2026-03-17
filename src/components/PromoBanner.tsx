@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Tag } from "lucide-react";
 import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -89,18 +90,21 @@ export default function PromoBanner() {
           <motion.div 
             animate={{ rotate: [0, -5, 5, 0] }}
             transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-            className="absolute -top-6 -left-6 z-20 bg-brand-orange text-white w-24 h-24 rounded-full flex flex-col items-center justify-center font-bold shadow-xl border-4 border-white transform -rotate-12"
+            className="absolute -top-6 -left-6 z-30 bg-brand-orange text-white w-24 h-24 rounded-full flex flex-col items-center justify-center font-bold shadow-xl border-4 border-white transform -rotate-12"
           >
             <span className="text-2xl leading-none">40%</span>
             <span className="text-xs uppercase tracking-wider">OFF</span>
           </motion.div>
           
-          {/* Product Placeholder Graphic */}
-          <div className="w-full h-full bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-full shadow-2xl flex items-center justify-center relative shadow-black/20">
-             <div className="w-48 h-56 bg-linear-to-tr from-gray-900 to-gray-700 rounded-3xl skew-x-6 rotate-12 shadow-2xl relative overflow-hidden">
-               <div className="absolute top-2 left-2 w-16 h-16 bg-white/10 rounded-full" />
-               <div className="absolute bottom-4 right-4 w-32 h-4 bg-white/10 rounded-full" />
-             </div>
+          {/* Product Graphic */}
+          <div className="w-full h-full rounded-full border border-white/20 flex items-center justify-center relative z-20">
+             <Image 
+               src="https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738060/aer8mmgbsk0wqdj5kcog.png"
+               alt="Promotion Product"
+               fill
+               className="object-contain scale-[1.3] drop-shadow-2xl translate-y-2 translate-x-1"
+               sizes="(max-width: 768px) 100vw, 300px"
+             />
           </div>
         </motion.div>
 
