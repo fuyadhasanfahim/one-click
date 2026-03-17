@@ -6,77 +6,46 @@ import PromoBanner from "@/components/PromoBanner";
 import FeaturesBar from "@/components/FeaturesBar";
 import Footer from "@/components/Footer";
 
-// Dummy data for visual presentation
-const DUMMY_PRODUCTS = [
-  {
-    id: "1",
-    name: "iPhone 15 Pro Max 256GB Platinum Black",
-    price: 130000.00,
-    oldPrice: 145000.00,
-    rating: 4.8,
-    reviews: 124,
-    image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738057/kzqumox7k5zqs6jfzhtf.png",
-    isNew: true,
-  },
-  {
-    id: "2",
-    name: "Apple Watch Series 9 GPS",
-    price: 45000.00,
-    oldPrice: 48000.00,
-    rating: 4.9,
-    reviews: 89,
-    image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773745639/bwxwx8ogz9mnwcwougxc.png",
-  },
-  {
-    id: "3",
-    name: "Sony WH-1000XM5 Noise Cancelling",
-    price: 35000.00,
-    oldPrice: 40000.00,
-    rating: 4.5,
-    reviews: 240,
-    image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738057/pwssq1mc0wsmjl87vohv.png",
-    isNew: true,
-  },
-  {
-    id: "4",
-    name: "MacBook Pro M3 14-inch Space Gray",
-    price: 195000.00,
-    rating: 5.0,
-    reviews: 56,
-    image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738058/xqm5xgpqgfcklolq06um.png",
-  },
-  {
-    id: "5",
-    name: "Samsung Neo QLED 8K Smart TV",
-    price: 350000.00,
-    oldPrice: 400000.00,
-    rating: 4.7,
-    reviews: 312,
-    image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738055/cmyeoyyeyklrny6l7zou.png",
-  },
-];
+import { Product } from "@/components/ProductCard";
 
-const DUMMY_PRODUCTS_2 = [
-  ...DUMMY_PRODUCTS.slice(2, 5).reverse(),
-  {
-    id: "6",
-    name: "Marshall Kilburn II Portable Bluetooth",
-    price: 25000.00,
-    rating: 4.6,
-    reviews: 45,
-    image: "📻",
-  },
-  {
-    id: "7",
-    name: "DJI Mini 4 Pro Drone with Remote",
-    price: 85000.00,
-    rating: 4.9,
-    reviews: 18,
-    image: "🚁",
-  },
-];
+interface DummyProduct {
+  id: number;
+  title: string;
+  price: number;
+  discountPercentage?: number;
+  rating: number;
+  reviews?: unknown[];
+  thumbnail: string;
+}
 
-export default function Home() {
+async function fetchCategory(category: string): Promise<Product[]> {
+  try {
+    const res = await fetch(`https://dummyjson.com/products/category/${category}`);
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.products.map((p: DummyProduct) => ({
+      id: p.id.toString(),
+      name: p.title,
+      price: p.price,
+      oldPrice: p.discountPercentage ? p.price + (p.price * (p.discountPercentage / 100)) : undefined,
+      rating: p.rating,
+      reviews: p.reviews?.length || Math.floor(Math.random() * 200) + 20,
+      image: p.thumbnail,
+      isNew: p.rating > 4.5,
+    }));
+  } catch (error) {
+    console.error(`Failed to fetch ${category}:`, error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const [laptops, smartphones, tablets] = await Promise.all([
+    fetchCategory('laptops'),
+    fetchCategory('smartphones'),
+    fetchCategory('tablets')
+  ]);
+
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 selection:bg-brand-orange selection:text-white">
       <Navbar />
@@ -84,25 +53,41 @@ export default function Home() {
       <main>
         <Hero />
         
-        <CategoryScroller />
-        
-        <ProductGrid 
-          title="Highly Recommended Product" 
-          products={[...DUMMY_PRODUCTS, ...DUMMY_PRODUCTS_2, ...DUMMY_PRODUCTS].slice(0, 15).map((p, i) => ({ ...p, id: `hr-${p.id}-${i}` }))}
-          isCarousel
+        <CategoryScroller 
+          categories={[
+            { id: '1', name: "Laptops", image: laptops[1]?.image || laptops[0]?.image },
+            { id: '2', name: "Phones", image: smartphones[1]?.image || smartphones[0]?.image },
+            { id: '3', name: "Tablets", image: tablets[1]?.image || tablets[0]?.image },
+            { id: '4', name: "Gaming", image: laptops[2]?.image || laptops[0]?.image },
+            { id: '5', name: "Audio", image: smartphones[2]?.image || smartphones[0]?.image },
+            { id: '6', name: "Desktop", image: tablets[2]?.image || tablets[0]?.image },
+            { id: '7', name: "Accessories", image: laptops[3]?.image || laptops[0]?.image },
+          ]} 
         />
         
-        <ProductGrid 
-          title="Popular Products" 
-          products={[...DUMMY_PRODUCTS_2, ...DUMMY_PRODUCTS].slice(0, 10).map((p, i) => ({ ...p, id: `pop-${p.id}-${i}` }))} 
-        />
+        {laptops.length > 0 && (
+          <ProductGrid 
+            title="Highly Recommended Laptops" 
+            products={laptops} 
+            isCarousel
+          />
+        )}
+        
+        {smartphones.length > 0 && (
+          <ProductGrid 
+            title="Popular Smartphones" 
+            products={smartphones.slice(0, 10)} 
+          />
+        )}
         
         <PromoBanner />
         
-        <ProductGrid 
-          title="Products for you" 
-          products={DUMMY_PRODUCTS.slice(0, 4).map((p, i) => ({ ...p, id: `foryou-${p.id}-${i}` }))} 
-        />
+        {tablets.length > 0 && (
+          <ProductGrid 
+            title="Tablets for You" 
+            products={tablets.slice(0, 8)} 
+          />
+        )}
         
         <FeaturesBar />
       </main>

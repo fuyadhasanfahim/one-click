@@ -2,7 +2,7 @@
 > one-click@0.1.0 dev C:\Users\fuyad\Desktop\one-click
 > next dev
 
-⚠ Port 3000 is in use by process 15964, using available port 3001 instead.
+⚠ Port 3000 is in use by process 21568, using available port 3001 instead.
 ▲ Next.js 16.1.7 (Turbopack)
 - Local:         http://localhost:3001
 - Network:       http://192.168.0.102:3001

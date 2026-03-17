@@ -6,14 +6,20 @@ import { motion, useInView, Variants } from "framer-motion";
 
 import Image from "next/image";
 
-const CATEGORIES = [
-  { id: 1, name: "Smartphone", image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738056/bdxp4g0jdhwxjpbd461b.png" },
-  { id: 2, name: "Smart Watch", image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738056/dlymx3u5ezkwvggmb4ji.png" },
-  { id: 3, name: "Camera", image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738054/xvvtczssenpflqbxlry8.png" },
-  { id: 4, name: "Headphone", image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738056/kjvjnweyc8euxl3kihfk.png" },
-  { id: 5, name: "Desktop", image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738057/rskbyeb7ipxcpygijjrw.png" },
-  { id: 6, name: "Smart TV", image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738055/cmyeoyyeyklrny6l7zou.png" },
-  { id: 7, name: "Audio", image: "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738058/xqm5xgpqgfcklolq06um.png" },
+export interface CategoryData {
+  id: string | number;
+  name: string;
+  image: string;
+}
+
+const FALLBACK_CATEGORIES: CategoryData[] = [
+  { id: 1, name: "Smartphone", image: "https://dummyjson.com/image/200x200/ffffff/282828?text=Phone" },
+  { id: 2, name: "Smart Watch", image: "https://dummyjson.com/image/200x200/ffffff/282828?text=Watch" },
+  { id: 3, name: "Camera", image: "https://dummyjson.com/image/200x200/ffffff/282828?text=Camera" },
+  { id: 4, name: "Headphone", image: "https://dummyjson.com/image/200x200/ffffff/282828?text=Audio" },
+  { id: 5, name: "Desktop", image: "https://dummyjson.com/image/200x200/ffffff/282828?text=PC" },
+  { id: 6, name: "Smart TV", image: "https://dummyjson.com/image/200x200/ffffff/282828?text=TV" },
+  { id: 7, name: "Audio", image: "https://dummyjson.com/image/200x200/ffffff/282828?text=Speaker" },
 ];
 
 const containerVariants = {
@@ -42,7 +48,7 @@ const headerVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
-export default function CategoryScroller() {
+export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: { categories?: CategoryData[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
@@ -96,7 +102,7 @@ export default function CategoryScroller() {
           className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-4 px-2"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <motion.div
               variants={itemVariants}
               whileHover={{ y: -8, scale: 1.02 }}

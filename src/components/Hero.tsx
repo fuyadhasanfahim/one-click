@@ -43,7 +43,13 @@ const contentVariants: Variants = {
   },
 };
 
+
 export default function Hero() {
+  // Fallback images if API fails
+  const mainImage = "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738055/v53buf6akycf7svei23d.png";
+  const sideImage1 = "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738057/x03wta9dyrvvp4oqtoes.png";
+  const sideImage2 = "https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738056/jbhtidlhdnkjine5ey9f.png";
+
   return (
     <section className="container mx-auto px-4 md:px-8 max-w-7xl pt-8 pb-12">
       <motion.div
@@ -96,11 +102,12 @@ export default function Hero() {
             className="absolute right-0 bottom-0 h-[85%] w-[80%] md:w-[60%] lg:w-[50%] z-10"
           >
             <Image
-              src="https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738055/v53buf6akycf7svei23d.png"
+              src={mainImage}
               alt="Upgrade Your Everyday Tech"
               fill
-              className="object-contain object-bottom group-hover:scale-105 transition-transform duration-700"
+              className="object-contain object-bottom p-8 group-hover:scale-105 transition-transform duration-700 mix-blend-multiply"
               priority
+              sizes="(max-width: 1024px) 100vw, 60vw"
             />
           </motion.div>
         </motion.div>
@@ -130,10 +137,11 @@ export default function Hero() {
             {/* Top Side Banner Image */}
             <div className="absolute right-0 bottom-0 w-36 h-44 md:w-44 md:h-52 z-10">
               <Image
-                src="https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738057/x03wta9dyrvvp4oqtoes.png"
+                src={sideImage1}
                 alt="Power Up Your Setup"
                 fill
-                className="object-contain object-bottom group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500"
+                className="object-contain object-bottom p-4 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform duration-500 mix-blend-multiply"
+                sizes="(max-width: 1024px) 50vw, 20vw"
               />
             </div>
           </motion.div>
@@ -162,10 +170,11 @@ export default function Hero() {
             {/* Bottom Side Banner Image */}
             <div className="absolute right-4 bottom-0 w-32 h-40 md:w-40 md:h-48 z-10">
               <Image
-                src="https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738056/jbhtidlhdnkjine5ey9f.png"
+                src={sideImage2}
                 alt="Level Up Your Playtime"
                 fill
-                className="object-contain object-bottom group-hover:scale-110 transition-transform duration-500"
+                className="object-contain object-bottom p-4 group-hover:scale-110 transition-transform duration-500 mix-blend-multiply"
+                sizes="(max-width: 1024px) 50vw, 20vw"
               />
             </div>
           </motion.div>
