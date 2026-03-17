@@ -51,7 +51,7 @@ export default function Hero() {
           
           <motion.h1 
             variants={itemVariants} 
-            className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold text-[#0A0A0A] leading-[1.1] mb-6 tracking-tighter"
+            className="text-5xl md:text-7xl lg:text-[5.5rem] font-extrabold text-[#0A0A0A] leading-[1.05] mb-6 tracking-tighter"
           >
             Upgrade Your <br className="hidden lg:block" />
             <span className="text-transparent bg-clip-text bg-linear-to-br from-[#0A0A0A] via-gray-700 to-gray-400">
@@ -67,10 +67,10 @@ export default function Hero() {
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center lg:justify-start">
-            <motion.div whileTap={{ scale: 0.97 }} className="w-full sm:w-max">
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 400, damping: 17 }} className="w-full sm:w-max">
               <Link
                 href="/shop"
-                className="group flex items-center justify-center gap-3 bg-[#0A0A0A] hover:bg-black text-white px-10 py-4 rounded-2xl font-semibold transition-all duration-300 w-full shadow-[0_10px_40px_-10px_rgba(0,0,0,0.4)]"
+                className="group flex items-center justify-center gap-3 bg-[#0A0A0A] hover:bg-black text-white px-10 py-4 rounded-full font-bold tracking-wide transition-all duration-300 w-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_10px_40px_-10px_rgba(0,0,0,0.4)]"
               >
                 Shop Collection
                 <motion.div whileHover={{ x: 5 }} transition={{ type: "spring", stiffness: 200 }}>
@@ -78,10 +78,10 @@ export default function Hero() {
                 </motion.div>
               </Link>
             </motion.div>
-            <motion.div whileTap={{ scale: 0.97 }} className="w-full sm:w-max">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.95 }} transition={{ type: "spring", stiffness: 400, damping: 17 }} className="w-full sm:w-max">
               <Link
                 href="#categories"
-                className="group flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-[#0A0A0A] px-10 py-4 rounded-2xl font-semibold transition-all duration-300 border border-gray-200 w-full shadow-xs"
+                className="group flex items-center justify-center gap-3 bg-white hover:bg-gray-50 text-[#0A0A0A] px-10 py-4 rounded-full font-bold tracking-wide transition-all duration-300 border border-gray-200 w-full shadow-xs"
               >
                 Explore Features
               </Link>

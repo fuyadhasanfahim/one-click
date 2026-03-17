@@ -12,6 +12,7 @@ interface ProductGridProps {
   viewAllLink?: string;
   columns?: 2 | 3 | 4;
   isCarousel?: boolean;
+  className?: string;
 }
 
 const containerVariants: Variants = {
@@ -30,7 +31,7 @@ const headerVariants: Variants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } }
 };
 
-export default function ProductGrid({ title, products, viewAllLink = "/shop", columns = 4, isCarousel = false }: ProductGridProps) {
+export default function ProductGrid({ title, products, viewAllLink = "/shop", columns = 4, isCarousel = false, className = "" }: ProductGridProps) {
   const gridClasses = {
     2: "grid-cols-1 sm:grid-cols-2",
     3: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3",
@@ -73,14 +74,15 @@ export default function ProductGrid({ title, products, viewAllLink = "/shop", co
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
   return (
-    <section className="container mx-auto px-4 md:px-8 max-w-7xl py-12" ref={containerRef}>
-      <motion.div 
-        variants={headerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="flex items-end justify-between mb-8 border-b border-gray-100 pb-4"
-      >
-        <h2 className="text-2xl font-bold text-gray-900 tracking-tight">{title}</h2>
+    <section className={`w-full py-24 md:py-32 ${className}`} ref={containerRef}>
+      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+        <motion.div 
+          variants={headerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="flex items-end justify-between mb-12 border-b border-gray-100 pb-6"
+        >
+          <h2 className="text-3xl font-extrabold text-gray-900 tracking-tighter">{title}</h2>
         <div className="flex items-center gap-4">
           {isCarousel && (
             <div className="hidden md:flex items-center gap-2 mr-4">
@@ -142,6 +144,7 @@ export default function ProductGrid({ title, products, viewAllLink = "/shop", co
           ))}
         </div>
       )}
+      </div>
     </section>
   );
 }

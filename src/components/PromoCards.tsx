@@ -46,17 +46,18 @@ const cardVariants = {
   }
 };
 
-export default function PromoCards() {
+export default function PromoCards({ className = "" }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
   return (
-    <section className="container mx-auto px-4 md:px-8 max-w-7xl pb-20" ref={containerRef}>
+    <section className={`w-full py-24 md:py-32 ${className}`} ref={containerRef}>
+      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
       <motion.div 
         variants={containerVariants}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-4 md:gap-6 lg:h-[600px]"
+        className="grid grid-cols-1 lg:grid-cols-3 lg:grid-rows-2 gap-4 md:gap-6 lg:h-150"
       >
         {PROMO_CARDS.map((card, index) => (
           <motion.div
@@ -78,8 +79,8 @@ export default function PromoCards() {
               />
             </div>
             
-            {/* Gradient Overlay for Text Readability - Softer for premium look */}
-            <div className={`absolute inset-0 z-10 bg-linear-to-t ${index === 0 ? "from-black/60" : "from-black/70"} via-black/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500`} />
+            {/* Gradient Overlay for Text Readability - Strict Editorial Control */}
+            <div className={`absolute inset-0 z-10 bg-linear-to-t ${index === 0 ? "from-[#0A0A0A]/90 via-[#0A0A0A]/40" : "from-[#0A0A0A]/95 via-[#0A0A0A]/60"} to-transparent opacity-90 transition-opacity duration-500`} />
 
             {/* Content aligned to bottom center */}
             <div className={`relative z-20 h-full flex flex-col items-center flex-end p-8 md:p-10 text-center ${index === 0 ? "justify-end pb-12" : "justify-end"}`}>
@@ -93,6 +94,7 @@ export default function PromoCards() {
           </motion.div>
         ))}
       </motion.div>
+      </div>
     </section>
   );
 }

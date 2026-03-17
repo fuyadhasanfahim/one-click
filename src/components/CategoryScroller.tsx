@@ -47,7 +47,7 @@ const headerVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
 };
 
-export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: { categories?: CategoryData[] }) {
+export default function CategoryScroller({ categories = FALLBACK_CATEGORIES, className = "" }: { categories?: CategoryData[], className?: string }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
@@ -84,18 +84,19 @@ export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: {
   const totalPages = Math.ceil(categories.length / itemsPerPage);
 
   return (
-    <section className="container mx-auto px-4 md:px-8 max-w-7xl py-12" ref={containerRef}>
-      <motion.div 
-        variants={headerVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        className="flex flex-col items-center mb-8"
-      >
-        <h2 className="text-3xl font-bold text-gray-900 mb-2">Choose Your Category</h2>
-        <p className="text-gray-500 text-sm max-w-xl text-center">
-          Explore our wide range of categories to find exactly what you need. From the latest gadgets and accessories to premium sound systems.
-        </p>
-      </motion.div>
+    <section className={`w-full py-24 md:py-32 ${className}`} ref={containerRef}>
+      <div className="container mx-auto px-4 md:px-8 max-w-7xl">
+        <motion.div 
+          variants={headerVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          className="flex flex-col items-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-extrabold text-[#0A0A0A] tracking-tighter mb-4">Choose Your Category</h2>
+          <p className="text-gray-500 text-lg max-w-2xl text-center leading-relaxed font-medium">
+            Explore our wide range of categories to find exactly what you need. From the latest gadgets and accessories to premium sound systems.
+          </p>
+        </motion.div>
 
       <div className="relative group/scroller">
         {/* Scroll Buttons */}
@@ -171,7 +172,8 @@ export default function CategoryScroller({ categories = FALLBACK_CATEGORIES }: {
             />
           ))}
         </div>
-      )}
+        )}
+      </div>
     </section>
   );
 }

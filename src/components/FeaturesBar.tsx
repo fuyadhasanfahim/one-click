@@ -47,13 +47,13 @@ const itemVariants: Variants = {
   },
 };
 
-export default function FeaturesBar() {
+export default function FeaturesBar({ className = "" }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.4 });
 
   return (
     <section
-      className="bg-gray-50 border-t border-b border-gray-100 py-16"
+      className={`w-full py-24 md:py-32 border-t border-b border-gray-100 ${className}`}
       ref={containerRef}
     >
       <div className="container mx-auto px-4 md:px-8 max-w-7xl">

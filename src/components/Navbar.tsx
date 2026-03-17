@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { Search, ShoppingCart, UserCircle, Globe, Menu } from "lucide-react";
-import { motion, Variants } from "framer-motion";
+import Image from "next/image";
+import { Search, ShoppingCart, UserCircle, Globe, Menu, Flame, Truck, MapPin } from "lucide-react";
+import { motion, Variants, useScroll, useMotionValueEvent } from "framer-motion";
 
 const navVariants: Variants = {
-  hidden: { opacity: 0, y: -20 },
+  initial: { opacity: 0, y: -20 },
   visible: { 
     opacity: 1, 
     y: 0,
@@ -15,36 +17,50 @@ const navVariants: Variants = {
       staggerChildren: 0.1,
       delayChildren: 0.1
     }
+  },
+  hidden: {
+    y: "-100%",
+    transition: { duration: 0.3, ease: "easeInOut" }
   }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: -10 },
+  initial: { opacity: 0, y: -10 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
 };
 
 export default function Navbar() {
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    if (latest > previous && latest > 150) {
+      setHidden(true);
+    } else {
+      setHidden(false);
+    }
+  });
+
   return (
     <motion.header 
-      initial="hidden"
-      animate="visible"
+      initial="initial"
+      animate={hidden ? "hidden" : "visible"}
       variants={navVariants}
-      className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm transition-all"
+      className="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm"
     >
       <div className="container mx-auto px-4 md:px-8 max-w-7xl">
         {/* Top Header Row */}
         <div className="flex items-center justify-between py-4">
           <motion.div variants={itemVariants} className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 group">
-              <motion.div 
-                whileHover={{ rotate: 15, scale: 1.1 }}
-                className="w-8 h-8 rounded bg-brand-orange flex items-center justify-center text-white font-bold text-xl transition-all"
-              >
-                O
-              </motion.div>
-              <span className="font-bold text-2xl tracking-tight text-gray-900">
-                ONECLICK
-              </span>
+              <Image 
+                src="https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738054/m0fumm3fo7jxybtkb8nk.png" 
+                alt="OneClick Logo" 
+                width={150} 
+                height={40} 
+                className="object-contain"
+              />
             </Link>
           </motion.div>
 
@@ -98,18 +114,19 @@ export default function Navbar() {
         </div>
 
         {/* Bottom Navigation Row */}
-        <motion.div variants={itemVariants} className="hidden md:flex items-center justify-center py-3 border-t border-gray-50">
+        <motion.div variants={itemVariants} className="hidden md:flex items-center justify-between py-3 border-t border-gray-100 mt-2">
+          {/* Left Navigation Links */}
           <nav className="flex space-x-8">
-            {["Home", "Shop", "Categories", "Campaigns", "About Us"].map((item, i) => (
+            {["Home", "Shop", "Collection", "Gadget", "Electronics"].map((item, i) => (
               <Link
                 key={item}
                 href={`/${item.toLowerCase().replace(" ", "-")}`}
-                className={`relative text-sm font-semibold tracking-wide uppercase group pt-1 pb-2 ${
+                className={`relative text-sm font-semibold tracking-wide group pt-1 pb-2 ${
                   i === 0 ? "text-brand-orange" : "text-gray-600 hover:text-brand-orange transition-colors"
                 }`}
               >
                 {item}
-                {/* Animated uneline for nav links */}
+                {/* Animated underline for nav links */}
                 <motion.div 
                   className={`absolute bottom-0 left-0 h-0.5 bg-brand-orange ${i === 0 ? "w-full" : "w-0 group-hover:w-full"}`}
                   transition={{ duration: 0.2 }}
@@ -117,6 +134,24 @@ export default function Navbar() {
               </Link>
             ))}
           </nav>
+
+          {/* Right Action Links */}
+          <div className="flex items-center gap-6">
+            <Link href="/deals" className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-brand-orange transition-colors group">
+              <Flame className="w-4 h-4 text-brand-orange group-hover:scale-110 transition-transform" />
+              Hot Deals
+            </Link>
+            <div className="h-4 w-px bg-gray-200"></div>
+            <Link href="/track" className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-brand-orange transition-colors group">
+              <Truck className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              Track Your order
+            </Link>
+            <div className="h-4 w-px bg-gray-200"></div>
+            <Link href="/stores" className="flex items-center gap-2 text-sm font-semibold text-gray-700 hover:text-brand-orange transition-colors group">
+              <MapPin className="w-4 h-4 group-hover:-translate-y-1 transition-transform" />
+              Store Location
+            </Link>
+          </div>
         </motion.div>
       </div>
     </motion.header>

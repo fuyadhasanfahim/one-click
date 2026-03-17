@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
@@ -41,15 +42,16 @@ export default function Footer() {
           
           {/* Brand Info */}
           <motion.div variants={columnVariants} className="flex flex-col">
-            <Link href="/" className="flex items-center gap-3 mb-6 group w-max">
-              <div className="w-8 h-8 rounded bg-brand-orange flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
-                O
-              </div>
-              <span className="font-bold text-2xl tracking-tight text-white">
-                ONECLICK
-              </span>
+            <Link href="/" className="mb-6 group w-max block">
+              <Image 
+                src="https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738054/m0fumm3fo7jxybtkb8nk.png" 
+                alt="OneClick Logo" 
+                width={150} 
+                height={40} 
+                className="object-contain"
+              />
             </Link>
-            <p className="text-sm leading-relaxed mb-8 max-w-sm text-gray-400">
+            <p className="text-sm leading-loose mb-8 max-w-sm text-gray-400">
               Your one-stop destination for premium electronics. We curate the best innovative tech to elevate your everyday digital lifestyle, delivering quality straight to your door.
             </p>
             <div className="flex flex-col gap-3">
@@ -71,7 +73,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <motion.div variants={columnVariants}>
-            <h4 className="text-white font-bold mb-6 text-lg">Quick Links</h4>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Quick Links</h4>
             <ul className="flex flex-col gap-3">
               {["Shop All", "New Arrivals", "Best Sellers", "Track Order", "About Us"].map((link) => (
                 <li key={link}>
@@ -86,7 +88,7 @@ export default function Footer() {
 
           {/* Customer Service */}
           <motion.div variants={columnVariants}>
-            <h4 className="text-white font-bold mb-6 text-lg">Customer Service</h4>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Customer Service</h4>
             <ul className="flex flex-col gap-3">
               {["Help Center", "Returns & Exchanges", "Shipping Info", "Terms & Conditions", "Privacy Policy"].map((link) => (
                 <li key={link}>
@@ -101,7 +103,7 @@ export default function Footer() {
 
           {/* Contact Details */}
           <motion.div variants={columnVariants}>
-            <h4 className="text-white font-bold mb-6 text-lg">Contact Us</h4>
+            <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-widest">Contact Us</h4>
             <ul className="flex flex-col gap-4">
               <li className="flex gap-3 text-sm">
                 <svg className="w-5 h-5 text-brand-orange shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">

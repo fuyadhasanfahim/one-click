@@ -34,13 +34,13 @@ export default function ProductCard({ product }: ProductCardProps) {
           transition: { type: "spring", stiffness: 100, damping: 15 },
         },
       }}
-      className="group bg-white rounded-[2rem] p-4 md:p-6 transition-all duration-500 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] flex flex-col h-full cursor-pointer relative overflow-hidden"
+      className="group bg-white rounded-[2rem] p-6 md:p-8 transition-all duration-500 border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.1)] flex flex-col h-full cursor-pointer relative overflow-hidden"
     >
       {/* Quick View Frosted Glass Overlay */}
-      <div className="absolute inset-0 z-20 bg-white/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-300 pointer-events-none">
+      <div className="absolute inset-0 z-20 bg-white/40 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-500 pointer-events-none">
         <motion.button 
           whileTap={{ scale: 0.95 }}
-          className="pointer-events-auto bg-[#0A0A0A] text-white px-6 py-3 rounded-full font-semibold shadow-[0_10px_30px_rgba(0,0,0,0.2)] hover:bg-black transition-colors flex items-center gap-2 translate-y-4 group-hover:translate-y-0 duration-300 ease-out"
+          className="pointer-events-auto bg-[#0A0A0A] text-white px-8 py-3.5 rounded-full font-bold tracking-wide shadow-[0_10px_30px_rgba(0,0,0,0.2),inset_0_1px_1px_rgba(255,255,255,0.2)] hover:bg-black transition-colors flex items-center gap-2 translate-y-4 group-hover:translate-y-0 duration-500 ease-out"
         >
           Quick View
         </motion.button>
@@ -50,14 +50,14 @@ export default function ProductCard({ product }: ProductCardProps) {
         <motion.div
           className="w-full h-full relative"
           whileHover={{ scale: 1.05 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           {product.image.startsWith("http") ? (
             <Image 
               src={product.image} 
               alt={product.name} 
               fill 
-              className="object-contain drop-shadow-md mix-blend-multiply" 
+              className="object-contain group-hover:brightness-95 group-hover:contrast-125 transition-all duration-700 mix-blend-multiply" 
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           ) : (
@@ -82,13 +82,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="w-full flex items-center justify-between gap-3 mt-auto">
           <motion.button 
             whileTap={{ scale: 0.97 }}
-            className="flex-1 py-3 px-2 text-sm font-bold rounded-xl bg-gray-50 text-[#0A0A0A] hover:bg-gray-100 transition-colors shadow-sm border border-gray-100"
+            className="flex-1 py-3 px-2 text-[13px] font-bold tracking-wide rounded-full bg-gray-50 text-[#0A0A0A] hover:bg-gray-100 transition-colors shadow-[inset_0_1px_1px_rgba(255,255,255,1),0_2px_4px_rgba(0,0,0,0.02)] border border-gray-200"
           >
             Buy Now
           </motion.button>
           <motion.button 
             whileTap={{ scale: 0.97 }}
-            className="flex-1 py-3 px-2 text-sm font-bold rounded-xl bg-[#0A0A0A] text-white hover:bg-black transition-colors shadow-sm"
+            className="flex-1 py-3 px-2 text-[13px] font-bold tracking-wide rounded-full bg-[#0A0A0A] text-white hover:bg-black transition-colors shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_12px_rgba(0,0,0,0.1)]"
           >
             Add to Cart
           </motion.button>
