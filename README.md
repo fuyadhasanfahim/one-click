@@ -2,7 +2,7 @@
 
 A modern, responsive, and high-performance e-commerce storefront built with the latest web technologies including Next.js 16, React 19, and Tailwind CSS v4. 
 
-![One-Click Cover](https://via.placeholder.com/1200x600?text=One-Click+E-Commerce)
+![One-Click Cover](https://res.cloudinary.com/dny7zfbg9/image/upload/v1773738054/m0fumm3fo7jxybtkb8nk.png)
 
 ## 🌐 Live Demo
 Check out the live beta version of the site on Vercel:
